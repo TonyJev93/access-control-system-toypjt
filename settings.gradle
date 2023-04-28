@@ -1,1 +1,5 @@
 rootProject.name = 'access-control'
+include 'user-adapter'
+include 'user-application'
+include 'user-domain'
+
