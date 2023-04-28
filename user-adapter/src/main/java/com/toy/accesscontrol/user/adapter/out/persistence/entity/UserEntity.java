@@ -23,6 +23,7 @@ public class UserEntity {
     private Long id;
 
     @Comment("사용자 아이디")
+    @Column(unique = true)
     private String userId;
 
     @Comment("비밀번호")
