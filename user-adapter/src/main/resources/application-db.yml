@@ -1,0 +1,96 @@
+spring:
+  jpa:
+    database: h2
+    open-in-view: false
+    properties:
+      hibernate:
+        #        implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        #        physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    name: datasource
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    hikari:
+      maximum-pool-size: 5
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false # 운영의 경우 p6spy 로그로 인해 성능 저하 발생할 수 있어 false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "test"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    url: jdbc:p6spy:h2:mem:testdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+---
+spring:
+  config:
+    activate:
+      on-profile: "local"
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:p6spy:h2:mem:localdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "alpha"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:p6spy:mysql://localhost:3306/access_control # TODO: Alpha URL 맵핑
+    username: test
+    password: test
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "real"
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:p6spy:mysql://localhost:13306/access_control # TODO: Real URL 맵핑
+    username: test
+    password: test
+
+---

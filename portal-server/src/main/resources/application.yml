@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: portal-server
+  profiles:
+    include: db
+    group:
+      test: debug
+      local: debug
+      alpha: debug
+      real:
+    active: local
