@@ -15,9 +15,6 @@ public class UserSignUpService implements UserSignUpUseCase {
     @Override
     public User signUp(SignUpRequest request) {
         var user = User.create(request.userId(), request.password(), request.name());
-
-        User signedUpUser = loadUserRepository.save(user);
-
-        return signedUpUser;
+        return loadUserRepository.save(user);
     }
 }

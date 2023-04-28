@@ -2,6 +2,9 @@ plugins {
     id 'java'
 }
 
+apply from: rootProject.file('gradle/common-adapter.gradle')
+apply from: rootProject.file('gradle/common-spock.gradle')
+
 group 'com.toy.accesscontrol'
 version '0.0.1-SNAPSHOT'
 
@@ -10,8 +13,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation project(":data-center-application")
+    compileOnly project(":data-center-domain")
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
+
+    runtimeOnly 'com.h2database:h2' // h2
 }
 
 test {

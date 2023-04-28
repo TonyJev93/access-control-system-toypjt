@@ -11,7 +11,7 @@ public record SignUpRequestDto(
         UserName name,
         String test
 ) {
-    public SignUpRequest toDomain() {
+    public SignUpRequest toPortRequest() {
         return new SignUpRequest(
                 userId,
                 password,

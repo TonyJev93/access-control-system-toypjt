@@ -1,12 +1,10 @@
-package com.toy.accesscontrol.user.adapter.global.p6spy;
+package com.toy.accesscontrol.datacenter.adapter.global.p6spy;
 
 import com.p6spy.engine.spy.P6SpyOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
-@Configuration(value = "UserP6spyConfig")
-@Primary
+@Configuration(value = "DataCenterP6spyConfig")
 public class P6spyConfig {
     @PostConstruct
     public void setLogMessageFormat() {

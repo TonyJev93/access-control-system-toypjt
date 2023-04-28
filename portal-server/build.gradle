@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation project(":user-adapter")
+    implementation project(":data-center-adapter")
 }
 
 test {

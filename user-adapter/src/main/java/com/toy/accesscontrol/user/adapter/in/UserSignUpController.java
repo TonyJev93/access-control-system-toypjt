@@ -21,7 +21,7 @@ public class UserSignUpController {
 
     @PostMapping("/sign-up")
     public UserDto signUp(@RequestBody SignUpRequestDto request) {
-        var user = userSignUpUseCase.signUp(request.toDomain());
+        var user = userSignUpUseCase.signUp(request.toPortRequest());
         return UserDto.from(user);
     }
 }
