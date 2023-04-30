@@ -2,16 +2,15 @@ plugins {
     id 'java'
 }
 
-apply from: rootProject.file('gradle/common-domain.gradle')
+apply from: rootProject.file('gradle/build-domain.gradle')
 
-group = 'com.tonyjev93.blogsearch'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+group 'com.toy.accesscontrol'
+version '0.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }

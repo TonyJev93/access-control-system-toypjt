@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-apply from: rootProject.file('gradle/common-adapter.gradle')
+apply from: rootProject.file('gradle/build-adapter.gradle')
 
 group 'com.toy.accesscontrol'
 version '0.0.1-SNAPSHOT'
@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation project(":user-adapter")
     implementation project(":data-center-adapter")
+    implementation project(":visit-adapter")
 }
 
 test {

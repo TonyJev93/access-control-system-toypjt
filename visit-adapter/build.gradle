@@ -9,9 +9,18 @@ repositories {
     mavenCentral()
 }
 
+apply from: rootProject.file('gradle/build-adapter.gradle')
+apply from: rootProject.file('gradle/lib/spock.gradle')
+apply from: rootProject.file('gradle/lib/p6spy.gradle')
+apply from: rootProject.file('gradle/lib/jpa.gradle')
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation project(":visit-application")
+
+    implementation project(":data-center-adapter")
+    implementation project(":user-adapter")
+
+    runtimeOnly 'com.h2database:h2' // h2
 }
 
 test {

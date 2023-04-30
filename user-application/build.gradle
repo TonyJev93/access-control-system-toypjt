@@ -2,14 +2,14 @@ plugins {
     id 'java'
 }
 
-apply from: rootProject.file('gradle/common-application.gradle')
-
 group 'com.toy.accesscontrol'
 version '0.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
+
+apply from: rootProject.file('gradle/build-application.gradle')
 
 dependencies {
     implementation project(":user-domain")

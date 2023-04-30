@@ -1,5 +1,6 @@
 package com.toy.accesscontrol.datacenter.domain;
 
+import com.toy.accesscontrol.datacenter.domain.vo.DataCenterId;
 import com.toy.accesscontrol.datacenter.domain.vo.DataCenterName;
 import lombok.*;
 
@@ -8,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
 public class DataCenter {
-    private Long id;
+    private DataCenterId id;
     private DataCenterName name;
 
     public static DataCenter create(DataCenterName name) {
@@ -17,7 +18,7 @@ public class DataCenter {
                 .build();
     }
 
-    public static DataCenter of(Long id, DataCenterName name) {
+    public static DataCenter of(DataCenterId id, DataCenterName name) {
         return DataCenter.builder()
                 .id(id)
                 .name(name)

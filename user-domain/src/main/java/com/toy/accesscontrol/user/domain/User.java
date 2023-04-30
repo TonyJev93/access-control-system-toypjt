@@ -11,13 +11,12 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
 public class User {
-    private Long id;
     private UserId userId;
     private Password password;
     private UserName name;
     private UserRole role;
 
-    public static User create(UserId userId, Password password, UserName name) {
+    public static User signUp(UserId userId, Password password, UserName name) {
         return User.builder()
                 .userId(userId)
                 .password(password)
@@ -26,7 +25,7 @@ public class User {
                 .build();
     }
 
-    public static User of(Long id, UserId userId, Password password, UserName name, UserRole role) {
-        return new User(id, userId, password, name, role);
+    public static User of(UserId userId, Password password, UserName name, UserRole role) {
+        return new User(userId, password, name, role);
     }
 }

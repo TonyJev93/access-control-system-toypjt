@@ -1,11 +1,14 @@
 package com.toy.accesscontrol.user.adapter.out.persistence.entity;
 
-import com.toy.accesscontrol.user.domain.User;
-import com.toy.accesscontrol.user.domain.vo.Password;
-import com.toy.accesscontrol.user.domain.vo.UserId;
-import com.toy.accesscontrol.user.domain.vo.UserName;
-import com.toy.accesscontrol.user.domain.vo.UserRole;
-import jakarta.persistence.*;
+import com.toy.accesscontrol.user.application.port.dto.UserDto;
+import com.toy.accesscontrol.user.application.port.dto.vo.PasswordVo;
+import com.toy.accesscontrol.user.application.port.dto.vo.UserIdVo;
+import com.toy.accesscontrol.user.application.port.dto.vo.UserNameVo;
+import com.toy.accesscontrol.user.application.port.dto.vo.UserRoleVo;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,12 +21,7 @@ import org.hibernate.annotations.Comment;
 @Getter
 public class UserEntity {
     @Id
-    @Comment("사용자 고유 아이디")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
     @Comment("사용자 아이디")
-    @Column(unique = true)
     private String userId;
 
     @Comment("비밀번호")
@@ -34,24 +32,22 @@ public class UserEntity {
 
     @Comment("사용자 권한")
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private UserRoleVo userRole;
 
-    public static UserEntity from(User user) {
+    public static UserEntity from(UserDto dto) {
         return new UserEntity(
-                user.getId(),
-                user.getUserId().value(),
-                user.getPassword().value(),
-                user.getName().value(),
-                user.getRole()
+                dto.userId().value(),
+                dto.password().value(),
+                dto.name().value(),
+                dto.role()
         );
     }
 
-    public User toDomain() {
-        return User.of(
-                id,
-                UserId.from(userId),
-                Password.from(password),
-                UserName.from(name),
+    public UserDto toDto() {
+        return UserDto.of(
+                UserIdVo.from(userId),
+                PasswordVo.from(password),
+                UserNameVo.from(name),
                 userRole
         );
     }

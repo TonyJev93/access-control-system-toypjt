@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-apply from: rootProject.file('gradle/common-adapter.gradle')
-apply from: rootProject.file('gradle/common-spock.gradle')
-
 group 'com.toy.accesscontrol'
 version '0.0.1-SNAPSHOT'
 
@@ -12,13 +9,13 @@ repositories {
     mavenCentral()
 }
 
+apply from: rootProject.file('gradle/build-adapter.gradle')
+apply from: rootProject.file('gradle/lib/spock.gradle')
+apply from: rootProject.file('gradle/lib/p6spy.gradle')
+apply from: rootProject.file('gradle/lib/jpa.gradle')
+
 dependencies {
     implementation project(":data-center-application")
-    compileOnly project(":data-center-domain")
-
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 
     runtimeOnly 'com.h2database:h2' // h2
 }

@@ -1,18 +1,18 @@
 package com.toy.accesscontrol.user.application.port.in;
 
-import com.toy.accesscontrol.user.domain.User;
-import com.toy.accesscontrol.user.domain.vo.Password;
-import com.toy.accesscontrol.user.domain.vo.UserId;
-import com.toy.accesscontrol.user.domain.vo.UserName;
+import com.toy.accesscontrol.user.application.port.dto.UserDto;
+import com.toy.accesscontrol.user.application.port.dto.vo.PasswordVo;
+import com.toy.accesscontrol.user.application.port.dto.vo.UserIdVo;
+import com.toy.accesscontrol.user.application.port.dto.vo.UserNameVo;
 
 public interface UserSignUpUseCase {
 
-    User signUp(SignUpRequest toDomain);
+    UserDto signUp(SignUpRequestDto signUpRequest);
 
-    record SignUpRequest(
-            UserId userId,
-            Password password,
-            UserName name
+    record SignUpRequestDto(
+            UserIdVo userId,
+            PasswordVo password,
+            UserNameVo name
     ) {
     }
 }

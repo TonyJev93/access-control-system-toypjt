@@ -1,11 +1,13 @@
 package com.toy.accesscontrol.datacenter.application.port.in;
 
-import com.toy.accesscontrol.datacenter.domain.DataCenter;
-import com.toy.accesscontrol.datacenter.domain.vo.DataCenterName;
+import com.toy.accesscontrol.datacenter.application.port.dto.DataCenterDto;
+import com.toy.accesscontrol.datacenter.application.port.dto.vo.DataCenterNameVo;
+import jakarta.validation.Valid;
+import lombok.NonNull;
 
 public interface DataCenterCreateUseCase {
-    DataCenter create(DataCenterCreateRequest request);
+    DataCenterDto create(DataCenterCreateRequestDto request);
 
-    record DataCenterCreateRequest(DataCenterName name) {
+    record DataCenterCreateRequestDto(@Valid @NonNull DataCenterNameVo name) {
     }
 }
