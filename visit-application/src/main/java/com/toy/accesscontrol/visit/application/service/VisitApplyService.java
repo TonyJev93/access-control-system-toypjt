@@ -3,6 +3,8 @@ package com.toy.accesscontrol.visit.application.service;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
 import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitIdVo;
+import com.toy.accesscontrol.visit.application.port.exception.ApplicantUserNotFoundException;
+import com.toy.accesscontrol.visit.application.port.exception.VisitDataCenterNotFoundException;
 import com.toy.accesscontrol.visit.application.port.in.VisitApplyUseCase;
 import com.toy.accesscontrol.visit.application.port.out.*;
 import com.toy.accesscontrol.visit.domain.Visit;
@@ -68,11 +70,11 @@ public class VisitApplyService implements VisitApplyUseCase {
 
     private void throwIfInvalidRequest(VisitApplyRequestDto request) {
         if (!loadDataCenterRepository.isDataCenterExist(request.dataCenterId())) {
-            throw new RuntimeException("존재하지 않는 데이터 센터입니다.");
+            throw new VisitDataCenterNotFoundException(request.dataCenterId());
         }
 
         if (!loadUserRepository.isUserExist(request.applicantUserId())) {
-            throw new RuntimeException("존재하지 않는 사용자 입니다.");
+            throw new ApplicantUserNotFoundException(request.applicantUserId());
         }
     }
 }

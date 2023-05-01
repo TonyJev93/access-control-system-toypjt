@@ -16,9 +16,7 @@ public class P6spyPrettySqlFormatter implements MessageFormattingStrategy {
         var currentDate = new Date();
         var dateFormat = new SimpleDateFormat("yy.MM.dd HH:mm:ss");
 
-        var logMessage = String.format("[%s] %s | %dms %s", category.toUpperCase(), dateFormat.format(currentDate), elapsed, formattedSql);
-
-        return logMessage;
+        return String.format("[%s] %s | %dms %s", category.toUpperCase(), dateFormat.format(currentDate), elapsed, formattedSql);
     }
 
     private String formatSql(String category, String sql) {

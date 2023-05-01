@@ -1,7 +1,6 @@
 package com.toy.accesscontrol.visit.application.port.in;
 
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
-import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
