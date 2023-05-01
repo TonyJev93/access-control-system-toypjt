@@ -8,6 +8,7 @@ apply from: rootProject.file('gradle/lib/jackson.gradle')
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web-services' // for. Exception의 HttpStatus 응답을 위해
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

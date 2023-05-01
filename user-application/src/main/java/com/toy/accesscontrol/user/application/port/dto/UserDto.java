@@ -5,12 +5,14 @@ import com.toy.accesscontrol.user.application.port.dto.vo.UserIdVo;
 import com.toy.accesscontrol.user.application.port.dto.vo.UserNameVo;
 import com.toy.accesscontrol.user.application.port.dto.vo.UserRoleVo;
 import com.toy.accesscontrol.user.domain.User;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 public record UserDto(
-        UserIdVo userId,
-        PasswordVo password,
-        UserNameVo name,
-        UserRoleVo role
+        @Valid @NotNull UserIdVo userId,
+        @Valid @NotNull PasswordVo password,
+        @Valid @NotNull UserNameVo name,
+        @Valid @NotNull UserRoleVo role
 ) {
     public static UserDto fromDomain(User user) {
         return new UserDto(

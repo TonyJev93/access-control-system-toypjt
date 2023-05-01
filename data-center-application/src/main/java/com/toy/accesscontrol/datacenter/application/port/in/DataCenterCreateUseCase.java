@@ -3,11 +3,13 @@ package com.toy.accesscontrol.datacenter.application.port.in;
 import com.toy.accesscontrol.datacenter.application.port.dto.DataCenterDto;
 import com.toy.accesscontrol.datacenter.application.port.dto.vo.DataCenterNameVo;
 import jakarta.validation.Valid;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 public interface DataCenterCreateUseCase {
-    DataCenterDto create(DataCenterCreateRequestDto request);
+    DataCenterDto create(@Valid @NotNull DataCenterCreateRequestDto request);
 
-    record DataCenterCreateRequestDto(@Valid @NonNull DataCenterNameVo name) {
+    record DataCenterCreateRequestDto(@Valid @NotNull DataCenterNameVo name) {
     }
 }

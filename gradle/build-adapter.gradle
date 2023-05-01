@@ -8,5 +8,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
 
+    // Apache Lang Library - ExceptionUtils.getStackTrace 쓰기 위해 사용
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

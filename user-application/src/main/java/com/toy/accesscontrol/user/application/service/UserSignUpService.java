@@ -1,6 +1,7 @@
 package com.toy.accesscontrol.user.application.service;
 
 import com.toy.accesscontrol.user.application.port.dto.UserDto;
+import com.toy.accesscontrol.user.application.port.exception.UserIdAlreadyExistException;
 import com.toy.accesscontrol.user.application.port.in.UserSignUpUseCase;
 import com.toy.accesscontrol.user.application.port.out.LoadUserRepositoryPort;
 import com.toy.accesscontrol.user.application.port.out.SaveUserRepositoryPort;
@@ -28,9 +29,8 @@ public class UserSignUpService implements UserSignUpUseCase {
     @Override
     public UserDto signUp(SignUpRequestDto signUpRequest) {
         var userIdExist = loadUserRepositoryPort.isUserIdExist(signUpRequest.userId());
-
         if (userIdExist) {
-            throw new RuntimeException("이미 존재하는 아이디");
+            throw new UserIdAlreadyExistException(signUpRequest.userId());
         }
 
         return saveUserRepositoryPort.save(

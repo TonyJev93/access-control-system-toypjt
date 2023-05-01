@@ -5,8 +5,8 @@ import com.toy.accesscontrol.visit.application.port.dto.vo.ApplicantUserIdVo;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitDataCenterIdVo;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitPeriodVo;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitReasonVo;
-import com.toy.accesscontrol.visit.application.port.in.VisitApplyUseCase;
-import com.toy.accesscontrol.visit.application.port.in.VisitApplyUseCase.VisitApplyRequestDto;
+import com.toy.accesscontrol.visit.application.port.in.VisitApproveUseCase;
+import com.toy.accesscontrol.visit.application.port.in.VisitApproveUseCase.VisitApproveRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -21,16 +21,16 @@ import java.time.ZonedDateTime;
 @Validated
 @RequestMapping("/api/v1/visit")
 @RequiredArgsConstructor
-public class VisitApplyController {
+public class VisitApproveController {
 
-    private final VisitApplyUseCase visitApplyUseCase;
+    private final VisitApproveUseCase visitApproveUseCase;
 
-    @PostMapping("/apply")
-    public VisitDto visitApply(@Valid @RequestBody VisitApplyRequest request) {
-        return visitApplyUseCase.visitApply(request.toDto());
+    @PostMapping("/approve")
+    public VisitDto visitApply(@Valid @RequestBody VisitApproveRequest request) {
+        return visitApproveUseCase.visitApprove(request.toDto());
     }
 
-    private record VisitApplyRequest(
+    private record VisitApproveRequest(
             ZonedDateTime visitStartDateTime,
             ZonedDateTime visitEndDateTime,
             VisitDataCenterIdVo dataCenterId,
@@ -38,8 +38,8 @@ public class VisitApplyController {
             ApplicantUserIdVo applicantUserId
     ) {
 
-        public VisitApplyRequestDto toDto() {
-            return new VisitApplyRequestDto(
+        public VisitApproveRequestDto toDto() {
+            return new VisitApproveRequestDto(
                     VisitPeriodVo.of(visitStartDateTime, visitEndDateTime),
                     dataCenterId,
                     reason,

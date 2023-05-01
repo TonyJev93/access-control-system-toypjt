@@ -5,7 +5,7 @@ spring:
   application:
     name: portal-server
   profiles:
-    include: db
+    include: db, exception
     group:
       test: debug
       local: debug

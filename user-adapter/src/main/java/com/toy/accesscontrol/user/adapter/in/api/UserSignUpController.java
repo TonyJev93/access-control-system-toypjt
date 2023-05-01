@@ -1,15 +1,15 @@
 package com.toy.accesscontrol.user.adapter.in.api;
 
 
+import com.toy.accesscontrol.user.adapter.global.api.UserApiResponse;
 import com.toy.accesscontrol.user.adapter.in.api.dto.UserResponse;
 import com.toy.accesscontrol.user.application.port.in.UserSignUpUseCase;
 import com.toy.accesscontrol.user.application.port.in.UserSignUpUseCase.SignUpRequestDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Validated
@@ -20,9 +20,12 @@ public class UserSignUpController {
     private final UserSignUpUseCase userSignUpUseCase;
 
     @PostMapping("/sign-up")
-    public UserResponse signUp(@RequestBody SignUpRequestDto request) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserApiResponse<UserResponse> signUp(@Valid @RequestBody SignUpRequestDto request) {
         var signUpUser = userSignUpUseCase.signUp(request);
 
-        return UserResponse.from(signUpUser);
+        return UserApiResponse.of(
+                UserResponse.from(signUpUser)
+        );
     }
 }

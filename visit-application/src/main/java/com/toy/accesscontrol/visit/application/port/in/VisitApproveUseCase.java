@@ -10,10 +10,10 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
-public interface VisitApplyUseCase {
-    VisitDto visitApply(@Valid @NotNull VisitApplyRequestDto request);
+public interface VisitApproveUseCase {
+    VisitDto visitApprove(@Valid @NotNull VisitApproveRequestDto request);
 
-    record VisitApplyRequestDto(
+    record VisitApproveRequestDto(
             @Valid @NotNull VisitPeriodVo visitPeriod,
             @Valid @NotNull VisitDataCenterIdVo dataCenterId,
             @Valid @NotNull VisitReasonVo reason,

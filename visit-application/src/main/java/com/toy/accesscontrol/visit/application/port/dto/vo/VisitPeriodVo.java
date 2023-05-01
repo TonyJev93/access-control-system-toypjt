@@ -3,12 +3,22 @@ package com.toy.accesscontrol.visit.application.port.dto.vo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.VisitPeriod;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.ZonedDateTime;
 
 public record VisitPeriodVo(
-        @JsonValue ZonedDateTime startDateTime,
-        @JsonValue ZonedDateTime endDateTime
+        @JsonValue
+        @NotNull
+        @Future
+        ZonedDateTime startDateTime,
+
+        @JsonValue
+        @NotNull
+        @Future
+        ZonedDateTime endDateTime
 ) {
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
@@ -27,6 +37,14 @@ public record VisitPeriodVo(
                 domain.startDateTime(),
                 domain.endDateTime()
         );
+    }
+
+    @AssertTrue
+    public boolean isStartDateTimeBeforeEndDateTime() {
+        if (startDateTime == null || endDateTime == null) {
+            return true;
+        }
+        return startDateTime.isBefore(endDateTime);
     }
 
     public VisitPeriod toDomain() {

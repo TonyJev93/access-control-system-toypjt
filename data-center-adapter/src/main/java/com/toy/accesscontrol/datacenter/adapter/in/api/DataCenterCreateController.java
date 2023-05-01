@@ -1,15 +1,15 @@
 package com.toy.accesscontrol.datacenter.adapter.in.api;
 
 
+import com.toy.accesscontrol.datacenter.adapter.global.api.DataCenterApiResponse;
 import com.toy.accesscontrol.datacenter.application.port.dto.DataCenterDto;
 import com.toy.accesscontrol.datacenter.application.port.in.DataCenterCreateUseCase;
 import com.toy.accesscontrol.datacenter.application.port.in.DataCenterCreateUseCase.DataCenterCreateRequestDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Validated
@@ -20,7 +20,10 @@ public class DataCenterCreateController {
     private final DataCenterCreateUseCase dataCenterCreateUseCase;
 
     @PostMapping
-    public DataCenterDto create(@RequestBody DataCenterCreateRequestDto request) {
-        return dataCenterCreateUseCase.create(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public DataCenterApiResponse<DataCenterDto> create(@Valid @RequestBody DataCenterCreateRequestDto request) {
+        return DataCenterApiResponse.of(
+                dataCenterCreateUseCase.create(request)
+        );
     }
 }

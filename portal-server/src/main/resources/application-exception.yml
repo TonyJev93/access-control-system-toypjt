@@ -1,0 +1,13 @@
+exception:
+  stack-trace:
+    enable: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "debug"
+exception:
+  stack-trace:
+    param-name: trace
+    enable: true
