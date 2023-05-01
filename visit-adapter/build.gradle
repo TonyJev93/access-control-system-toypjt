@@ -19,7 +19,7 @@ dependencies {
 
     implementation project(":data-center-adapter")
     implementation project(":user-adapter")
-
+    implementation project(":sms-adapter")
     runtimeOnly 'com.h2database:h2' // h2
 }
 

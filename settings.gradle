@@ -12,4 +12,6 @@ include 'access-adapter'
 include 'access-application'
 include 'access-domain'
 include 'portal-server'
+include 'sms-adapter'
+include 'sms-application'
 

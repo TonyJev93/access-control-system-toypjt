@@ -1,10 +1,7 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
-import com.toy.accesscontrol.visit.application.port.dto.vo.ApplicantUserIdVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitDataCenterIdVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitReasonVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitStatusVo;
+import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,9 +44,9 @@ public class VisitEntity {
 
     public static VisitEntity from(VisitDto visit) {
         return new VisitEntity(
-                visit.id(),
-                visit.visitStartDateTime(),
-                visit.visitEndDateTime(),
+                visit.id() == null ? null : visit.id().value(),
+                visit.visitPeriod().startDateTime(),
+                visit.visitPeriod().endDateTime(),
                 visit.dataCenterId().value(),
                 visit.reason().value(),
                 visit.status(),
@@ -59,9 +56,8 @@ public class VisitEntity {
 
     public VisitDto toDto() {
         return new VisitDto(
-                id,
-                visitStartDateTime,
-                visitEndDateTime,
+                VisitIdVo.from(id),
+                VisitPeriodVo.of(visitStartDateTime, visitEndDateTime),
                 VisitDataCenterIdVo.from(dataCenterId),
                 VisitReasonVo.from(visitReason),
                 status,

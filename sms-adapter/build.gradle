@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'com.toy.accesscontrol'
+version '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+apply from: rootProject.file('gradle/build-adapter.gradle')
+apply from: rootProject.file('gradle/lib/spock.gradle')
+
+dependencies {
+    implementation project(":sms-application")
+}
+
+test {
+    useJUnitPlatform()
+}

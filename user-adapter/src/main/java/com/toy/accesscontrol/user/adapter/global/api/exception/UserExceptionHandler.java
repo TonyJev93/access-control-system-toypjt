@@ -51,7 +51,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
             @NonNull HttpStatusCode status,
             @NonNull WebRequest request
     ) {
-        log.error(exception.getMessage());
+        log.error("MethodArgumentNotValidException occurred: ", exception);
 
         var errorResponse = UserErrorResponse.builder()
                 .code(UserError.UNPROCESSABLE_ENTITY.getErrorCode())
@@ -72,7 +72,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
             RuntimeException exception,
             WebRequest request
     ) {
-        log.error(exception.getMessage());
+        log.error("RuntimeException occurred: ", exception);
 
         var errorConstant = UserError.findMatchedError(exception);
 

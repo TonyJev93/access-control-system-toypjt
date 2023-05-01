@@ -8,7 +8,7 @@ spring:
     include: db, exception
     group:
       test: debug
-      local: debug
+      local:
       alpha: debug
       real:
     active: local

@@ -1,17 +1,11 @@
 package com.toy.accesscontrol.visit.application.port.dto;
 
-import com.toy.accesscontrol.visit.application.port.dto.vo.ApplicantUserIdVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitDataCenterIdVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitReasonVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitStatusVo;
+import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 import com.toy.accesscontrol.visit.domain.Visit;
 
-import java.time.ZonedDateTime;
-
 public record VisitDto(
-        Long id,
-        ZonedDateTime visitStartDateTime,
-        ZonedDateTime visitEndDateTime,
+        VisitIdVo id,
+        VisitPeriodVo visitPeriod,
         VisitDataCenterIdVo dataCenterId,
         VisitReasonVo reason,
         VisitStatusVo status,
@@ -19,13 +13,23 @@ public record VisitDto(
 ) {
     public static VisitDto from(Visit visit) {
         return new VisitDto(
-                visit.getId(),
-                visit.getVisitPeriod().startDateTime(),
-                visit.getVisitPeriod().endDateTime(),
+                visit.getId() == null ? null : VisitIdVo.fromDomain(visit.getId()),
+                VisitPeriodVo.fromDomain(visit.getVisitPeriod()),
                 VisitDataCenterIdVo.fromDomain(visit.getDataCenterId()),
                 VisitReasonVo.fromDomain(visit.getReason()),
                 VisitStatusVo.fromDomain(visit.getStatus()),
                 ApplicantUserIdVo.fromDomain(visit.getApplicantUserId())
+        );
+    }
+
+    public Visit toDomain() {
+        return Visit.of(
+                id.toDomain(),
+                visitPeriod.toDomain(),
+                dataCenterId.toDomain(),
+                reason.toDomain(),
+                VisitStatusVo.toDomain(status),
+                applicantUserId.toDomain()
         );
     }
 }

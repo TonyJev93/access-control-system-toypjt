@@ -40,4 +40,8 @@ public class Visit {
                 applicantUserId
         );
     }
+
+    public void approve() {
+        this.status = VisitStatus.APPROVED;
+    }
 }
