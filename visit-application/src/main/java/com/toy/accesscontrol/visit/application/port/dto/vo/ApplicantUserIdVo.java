@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 public record ApplicantUserIdVo(@JsonValue String value) {
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static ApplicantUserIdVo from(@NonNull String value) {
         return new ApplicantUserIdVo(value);
     }

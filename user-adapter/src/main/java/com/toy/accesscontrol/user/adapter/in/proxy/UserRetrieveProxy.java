@@ -21,7 +21,7 @@ public class UserRetrieveProxy {
     }
 
     public record RetrieveId(@JsonValue String value) {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+        @JsonCreator
         public static RetrieveId from(String value) {
             return new RetrieveId(value);
         }

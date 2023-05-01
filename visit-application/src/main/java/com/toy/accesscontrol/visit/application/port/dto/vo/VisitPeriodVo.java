@@ -21,7 +21,7 @@ public record VisitPeriodVo(
         ZonedDateTime endDateTime
 ) {
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static VisitPeriodVo of(
             ZonedDateTime startDateTime,
             ZonedDateTime endDateTime

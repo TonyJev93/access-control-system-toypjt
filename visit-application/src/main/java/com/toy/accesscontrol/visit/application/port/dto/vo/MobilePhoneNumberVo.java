@@ -12,7 +12,7 @@ public record MobilePhoneNumberVo(
 ) {
     public static final String REG_MOBILE_PHONE = "01\\d{1}-\\d{4}-\\d{4}$";
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static MobilePhoneNumberVo from(String value) {
         return new MobilePhoneNumberVo(value);
     }

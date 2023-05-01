@@ -3,12 +3,8 @@ apply from: rootProject.file('gradle/build-common.gradle')
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-apply from: rootProject.file('gradle/lib/jackson.gradle')
-
 dependencies {
     implementation 'org.springframework:spring-core'
-
-    implementation 'org.springframework.boot:spring-boot-starter-validation' // for Validation 체크
-
+    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

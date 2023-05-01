@@ -7,7 +7,7 @@ import lombok.NonNull;
 
 public record VisitDataCenterIdVo(@JsonValue Long value) {
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static VisitDataCenterIdVo from(@NonNull Long value) {
         return new VisitDataCenterIdVo(value);
     }

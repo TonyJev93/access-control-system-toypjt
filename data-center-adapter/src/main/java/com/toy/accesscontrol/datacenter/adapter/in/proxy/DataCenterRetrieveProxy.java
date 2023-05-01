@@ -34,7 +34,7 @@ public class DataCenterRetrieveProxy {
     }
 
     public record RetrieveId(@JsonValue Long value) {
-        @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+        @JsonCreator
         public static RetrieveId from(Long value) {
             return new RetrieveId(value);
         }

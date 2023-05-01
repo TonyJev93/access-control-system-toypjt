@@ -20,7 +20,7 @@ public record PasswordVo(
     public static final String REG_PASSWORD = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
 
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static PasswordVo from(String value) {
         return new PasswordVo(value);
     }

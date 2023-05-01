@@ -6,7 +6,7 @@ import com.toy.accesscontrol.visit.domain.vo.VisitorName;
 
 public record VisitorNameVo(@JsonValue String value) {
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static VisitorNameVo from(String value) {
         return new VisitorNameVo(value);
     }

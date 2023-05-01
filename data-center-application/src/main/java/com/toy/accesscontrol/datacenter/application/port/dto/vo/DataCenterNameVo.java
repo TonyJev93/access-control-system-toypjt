@@ -17,7 +17,7 @@ public record DataCenterNameVo(
     public static final int LENGTH_MIN = 1;
     public static final int LENGTH_MAX = 5;
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static DataCenterNameVo from(@NonNull String value) {
         return new DataCenterNameVo(value);
     }

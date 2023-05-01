@@ -15,7 +15,7 @@ public record UserNameVo(
     public static final int LENGTH_MIN = 2;
     public static final int LENGTH_MAX = 10;
 
-    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
+    @JsonCreator
     public static UserNameVo from(String value) {
         return new UserNameVo(value);
     }
