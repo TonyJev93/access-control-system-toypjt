@@ -102,3 +102,5 @@
 다른 도메인의 데이터가 필요한 경우 다른 도메인의 Adapter를 통해 받아온다.
 
 > 해당 프로젝트에서는 해당 모듈의 UseCase를 사용할 수 있도록 **Proxy** 역할을 수행하는 서비스를 Adapter.In 내에 추가 하였고 이를 통해 외부의 다른 모듈에서도 해당 모듈의 UseCase를 이용할 수 있도록 하였음.
+>
+> 각 모듈이 Micro Service로 분리가 된다면 Adapter.Out.Proxy -> Adapter.In.Proxy 간의 의존성을 API 호출을 통해 끊어낼 수 있기 때문에 유연한 확장이 가능한 구조라고 생각한다.
