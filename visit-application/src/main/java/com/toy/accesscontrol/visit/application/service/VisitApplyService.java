@@ -20,8 +20,8 @@ import java.util.List;
 public class VisitApplyService implements VisitApplyUseCase {
 
     private final SaveVisitRepositoryPort saveVisitRepositoryPort;
-    private final LoadDataCenterRepository loadDataCenterRepository;
-    private final LoadUserRepository loadUserRepository;
+    private final LoadDataCenterRepositoryPort loadDataCenterRepositoryPort;
+    private final LoadUserRepositoryPort loadUserRepositoryPort;
     private final SaveVisitorRepositoryPort saveVisitorRepositoryPort;
     private final VisitAppliedEventPublisher visitAppliedEventPublisher;
 
@@ -69,11 +69,11 @@ public class VisitApplyService implements VisitApplyUseCase {
     }
 
     private void throwIfInvalidRequest(VisitApplyRequestDto request) {
-        if (!loadDataCenterRepository.isDataCenterExist(request.dataCenterId())) {
+        if (!loadDataCenterRepositoryPort.isDataCenterExist(request.dataCenterId())) {
             throw new VisitDataCenterNotFoundException(request.dataCenterId());
         }
 
-        if (!loadUserRepository.isUserExist(request.applicantUserId())) {
+        if (!loadUserRepositoryPort.isUserExist(request.applicantUserId())) {
             throw new ApplicantUserNotFoundException(request.applicantUserId());
         }
     }

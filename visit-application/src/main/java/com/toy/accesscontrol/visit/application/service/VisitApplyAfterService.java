@@ -6,7 +6,7 @@ import com.toy.accesscontrol.visit.application.port.dto.vo.VisitIdVo;
 import com.toy.accesscontrol.visit.application.port.exception.VisitDataCenterNotFoundException;
 import com.toy.accesscontrol.visit.application.port.exception.VisitNotFoundException;
 import com.toy.accesscontrol.visit.application.port.in.VisitApplyAfterUseCase;
-import com.toy.accesscontrol.visit.application.port.out.LoadDataCenterRepository;
+import com.toy.accesscontrol.visit.application.port.out.LoadDataCenterRepositoryPort;
 import com.toy.accesscontrol.visit.application.port.out.LoadVisitRepositoryPort;
 import com.toy.accesscontrol.visit.application.port.out.LoadVisitorRepositoryPort;
 import com.toy.accesscontrol.visit.application.port.out.VisitSmsSender;
@@ -22,7 +22,7 @@ public class VisitApplyAfterService implements VisitApplyAfterUseCase {
 
     private final LoadVisitRepositoryPort loadVisitRepositoryPort;
     private final LoadVisitorRepositoryPort loadVisitorRepositoryPort;
-    private final LoadDataCenterRepository loadDataCenterRepository;
+    private final LoadDataCenterRepositoryPort loadDataCenterRepositoryPort;
     private final VisitSmsSender visitSmsSender;
 
     @Override
@@ -32,7 +32,7 @@ public class VisitApplyAfterService implements VisitApplyAfterUseCase {
                 .orElseThrow(() -> new VisitNotFoundException(visitId));
 
         // 데이터 센터 조회
-        var visitDataCenter = loadDataCenterRepository.findBy(visit.dataCenterId())
+        var visitDataCenter = loadDataCenterRepositoryPort.findBy(visit.dataCenterId())
                 .orElseThrow(() -> new VisitDataCenterNotFoundException(visit.dataCenterId()));
 
         // 방문자 조회

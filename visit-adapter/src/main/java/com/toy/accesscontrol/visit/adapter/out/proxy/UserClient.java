@@ -3,13 +3,13 @@ package com.toy.accesscontrol.visit.adapter.out.proxy;
 import com.toy.accesscontrol.user.adapter.in.proxy.UserRetrieveProxy;
 import com.toy.accesscontrol.user.adapter.in.proxy.UserRetrieveProxy.RetrieveId;
 import com.toy.accesscontrol.visit.application.port.dto.vo.ApplicantUserIdVo;
-import com.toy.accesscontrol.visit.application.port.out.LoadUserRepository;
+import com.toy.accesscontrol.visit.application.port.out.LoadUserRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserClient implements LoadUserRepository {
+public class UserClient implements LoadUserRepositoryPort {
 
     private final UserRetrieveProxy userRetrieveProxy;
 

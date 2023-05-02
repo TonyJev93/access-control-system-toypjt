@@ -5,7 +5,7 @@ import com.toy.accesscontrol.datacenter.adapter.in.proxy.DataCenterRetrieveProxy
 import com.toy.accesscontrol.visit.application.port.dto.VisitDataCenterDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitDataCenterIdVo;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitDataCenterNameVo;
-import com.toy.accesscontrol.visit.application.port.out.LoadDataCenterRepository;
+import com.toy.accesscontrol.visit.application.port.out.LoadDataCenterRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class DataCenterClient implements LoadDataCenterRepository {
+public class DataCenterClient implements LoadDataCenterRepositoryPort {
 
     private final DataCenterRetrieveProxy dataCenterRetrieveProxy;
 
