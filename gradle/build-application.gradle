@@ -11,6 +11,4 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web-services' // for. Exception의 HttpStatus 응답을 위해
 
     implementation 'org.springframework:spring-tx' // for. Transactional
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
