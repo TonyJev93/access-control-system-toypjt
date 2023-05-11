@@ -10,7 +10,7 @@
 ## 이벤트 스토밍
 
 * 관리 Tool
-  URL : [miro - NHN IDC](https://miro.com/welcomeonboard/MGNyZkRkajFFbEd1czJZZjI5aVh6dEtaekpLekgyMmR2dFJRTXJSRVBPQmJpS0lyZkpZOEJaMmVmUUZpa21BU3wzNDU4NzY0NTE1NTQ3ODg4MTEyfDI=?share_link_id=952913919009)
+  URL : [miro - IDC](https://miro.com/welcomeonboard/MGNyZkRkajFFbEd1czJZZjI5aVh6dEtaekpLekgyMmR2dFJRTXJSRVBPQmJpS0lyZkpZOEJaMmVmUUZpa21BU3wzNDU4NzY0NTE1NTQ3ODg4MTEyfDI=?share_link_id=952913919009)
 * 설명
     * 색깔 별 역할
         * <span style="color:#009800">**연두색**</span>(Actor) : Command를 수행하는 주체자
