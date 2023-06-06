@@ -4,18 +4,17 @@ import com.toy.accesscontrol.visit.application.port.dto.RequesterDto;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import java.time.ZonedDateTime;
 
 @Entity(name = "Visit")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+// @NoArgsConstructor(access = AccessLevel.PROTECTED) // Mapstruct 사용 하려면 PUBLIC 사용 해야함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
 public class VisitEntity {
     @Id
     @Column(name = "visit_id")

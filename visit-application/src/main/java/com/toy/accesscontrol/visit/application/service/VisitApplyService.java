@@ -54,19 +54,19 @@ public class VisitApplyService implements VisitApplyUseCase {
     public VisitDto visitApply(VisitApplyRequestDto request) {
         throwIfInvalidRequest(request);
 
-        var appliedVisit = saveVisitRepositoryPort.save(
+        var appliedVisitDto = saveVisitRepositoryPort.save(
                 VisitDto.fromDomain(appliedVisitByRequest(request))
         );
 
-        saveVisitors(request, appliedVisit);
+        saveVisitors(request, appliedVisitDto);
 
-        visitAppliedEventPublisher.publish(appliedVisit.id());
+        visitAppliedEventPublisher.publish(appliedVisitDto.id());
 
-        return appliedVisit;
+        return appliedVisitDto;
     }
 
-    private void saveVisitors(VisitApplyRequestDto request, VisitDto visit) {
-        var visitors = visitorsByRequest(request, visit);
+    private void saveVisitors(VisitApplyRequestDto request, VisitDto visitDto) {
+        var visitors = visitorsByRequest(request, visitDto);
 
         visitors.getValues()
                 .forEach(
