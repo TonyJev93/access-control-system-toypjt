@@ -19,7 +19,7 @@ public class VisitRepository implements SaveVisitRepositoryPort, LoadVisitReposi
 
     @Override
     public VisitDto save(VisitDto visit) {
-        return repository.save(VisitEntity.from(visit))
+        return repository.save(VisitEntity.fromDto(visit))
                 .toDto();
     }
 

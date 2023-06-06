@@ -2,18 +2,16 @@ package com.toy.accesscontrol.visit.application.service;
 
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
 import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitIdVo;
 import com.toy.accesscontrol.visit.application.port.exception.ApplicantUserNotFoundException;
 import com.toy.accesscontrol.visit.application.port.exception.VisitDataCenterNotFoundException;
 import com.toy.accesscontrol.visit.application.port.in.VisitApplyUseCase;
 import com.toy.accesscontrol.visit.application.port.out.*;
 import com.toy.accesscontrol.visit.domain.Visit;
 import com.toy.accesscontrol.visit.domain.Visitor;
+import com.toy.accesscontrol.visit.domain.Visitors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,25 +23,30 @@ public class VisitApplyService implements VisitApplyUseCase {
     private final SaveVisitorRepositoryPort saveVisitorRepositoryPort;
     private final VisitAppliedEventPublisher visitAppliedEventPublisher;
 
-    private static Visit appliedVisitByRequest(VisitApplyRequestDto dto) {
+    private static Visit appliedVisitByRequest(VisitApplyRequestDto request) {
         return Visit.applied(
-                dto.visitPeriod().toDomain(),
-                dto.dataCenterId().toDomain(),
-                dto.reason().toDomain(),
-                dto.applicantUserId().toDomain()
+                request.visitPeriod().toDomain(),
+                request.dataCenterId().toDomain(),
+                request.reason().toDomain(),
+                request.applicantUserId().toDomain(),
+                request.requester().toDomain()
         );
     }
 
-    private static List<Visitor> visitorsByRequest(VisitApplyRequestDto request, VisitIdVo visitId) {
-        return request.visitors().stream()
-                .map(visitor ->
-                        Visitor.create(
-                                visitId.toDomain(),
-                                visitor.name().toDomain(),
-                                visitor.mobilePhoneNumber().toDomain(),
-                                visitor.company().toDomain()
-                        )
-                ).toList();
+    private static Visitors visitorsByRequest(VisitApplyRequestDto request, VisitDto visitDto) {
+        var visitors =
+                request.visitors()
+                        .stream()
+                        .map(visitor ->
+                                Visitor.create(
+                                        visitDto.toDomain(),
+                                        visitor.name().toDomain(),
+                                        visitor.mobilePhoneNumber().toDomain(),
+                                        visitor.company().toDomain()
+                                )
+                        ).toList();
+
+        return Visitors.from(visitors);
     }
 
     @Override
@@ -52,20 +55,26 @@ public class VisitApplyService implements VisitApplyUseCase {
         throwIfInvalidRequest(request);
 
         var appliedVisit = saveVisitRepositoryPort.save(
-                VisitDto.from(appliedVisitByRequest(request))
+                VisitDto.fromDomain(appliedVisitByRequest(request))
         );
 
-        saveVisitors(request, appliedVisit.id());
+        saveVisitors(request, appliedVisit);
 
         visitAppliedEventPublisher.publish(appliedVisit.id());
 
         return appliedVisit;
     }
 
-    private List<VisitorDto> saveVisitors(VisitApplyRequestDto request, VisitIdVo visitId) {
-        return visitorsByRequest(request, visitId).stream()
-                .map(visitor -> saveVisitorRepositoryPort.save(VisitorDto.fromDomain(visitor)))
-                .toList();
+    private void saveVisitors(VisitApplyRequestDto request, VisitDto visit) {
+        var visitors = visitorsByRequest(request, visit);
+
+        visitors.getValues()
+                .forEach(
+                        visitor ->
+                                saveVisitorRepositoryPort.save(
+                                        VisitorDto.fromDomain(visitor)
+                                )
+                );
     }
 
     private void throwIfInvalidRequest(VisitApplyRequestDto request) {

@@ -8,22 +8,27 @@ import com.toy.accesscontrol.visit.application.port.out.LoadVisitorRepositoryPor
 import com.toy.accesscontrol.visit.application.port.out.SaveVisitorRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class VisitorRepository implements SaveVisitorRepositoryPort, LoadVisitorRepositoryPort {
 
     private final VisitorJpaRepository repository;
 
     @Override
-    public VisitorDto save(VisitorDto visit) {
-        return repository.save(VisitorEntity.from(visit))
+    public VisitorDto save(VisitorDto visitor) {
+        return repository.save(VisitorEntity.fromDto(visitor))
                 .toDto();
     }
 
     @Override
+    // [Study] Transactional 이 없으면 LazyLoading 시 Session 을 찾을 수 없다는 에러 발생
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List<VisitorDto> findAllByVisitId(VisitIdVo visitId) {
         return repository.findAllByVisitId(visitId.value())
                 .stream()

@@ -1,5 +1,6 @@
 package com.toy.accesscontrol.visit.application.port.in;
 
+import com.toy.accesscontrol.visit.application.port.dto.RequesterDto;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 import jakarta.validation.Valid;
@@ -17,13 +18,13 @@ public interface VisitApplyUseCase {
             @Valid @NotNull VisitDataCenterIdVo dataCenterId,
             @Valid @NotNull VisitReasonVo reason,
             @Valid @NotNull ApplicantUserIdVo applicantUserId,
-            @Valid @NotNull List<VisitorCreateRequestDto> visitors
+            @Valid @NotNull List<VisitorCreateRequestDto> visitors,
+            @Valid @NotNull RequesterDto requester
     ) {
         public record VisitorCreateRequestDto(
-                VisitorIdVo id,
-                VisitorNameVo name,
-                MobilePhoneNumberVo mobilePhoneNumber,
-                CompanyVo company
+                @Valid @NotNull VisitorNameVo name,
+                @Valid @NotNull MobilePhoneNumberVo mobilePhoneNumber,
+                @Valid @NotNull CompanyVo company
         ) {
         }
     }

@@ -1,11 +1,9 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 
+import com.toy.accesscontrol.visit.application.port.dto.RequesterDto;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +18,7 @@ import java.time.ZonedDateTime;
 @Getter
 public class VisitEntity {
     @Id
+    @Column(name = "visit_id")
     @Comment("고유 아이디")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -37,12 +36,23 @@ public class VisitEntity {
     private String visitReason;
 
     @Comment("방문 상태")
+    @Enumerated(EnumType.STRING)
     private VisitStatusVo status;
 
     @Comment("신청자 아이디")
     private String applicantUserId;
 
-    public static VisitEntity from(VisitDto visit) {
+    @Comment("신청자 이름")
+    private String requesterName;
+
+    @Comment("신청자 휴대 전화 번호")
+    private String requesterMobilePhoneNumber;
+
+    @Comment("신청자 이메일 주소")
+    private String requesterEmailAddress;
+
+
+    public static VisitEntity fromDto(VisitDto visit) {
         return new VisitEntity(
                 visit.id() == null ? null : visit.id().value(),
                 visit.visitPeriod().startDateTime(),
@@ -50,7 +60,10 @@ public class VisitEntity {
                 visit.dataCenterId().value(),
                 visit.reason().value(),
                 visit.status(),
-                visit.applicantUserId().value()
+                visit.applicantUserId().value(),
+                visit.requester().name().value(),
+                visit.requester().mobilePhoneNumber().value(),
+                visit.requester().emailAddress().value()
         );
     }
 
@@ -61,7 +74,12 @@ public class VisitEntity {
                 VisitDataCenterIdVo.from(dataCenterId),
                 VisitReasonVo.from(visitReason),
                 status,
-                ApplicantUserIdVo.from(applicantUserId)
+                ApplicantUserIdVo.from(applicantUserId),
+                RequesterDto.of(
+                        RequesterNameVo.from(requesterName),
+                        MobilePhoneNumberVo.from(requesterMobilePhoneNumber),
+                        EmailAddressVo.from(requesterEmailAddress)
+                )
         );
     }
 }

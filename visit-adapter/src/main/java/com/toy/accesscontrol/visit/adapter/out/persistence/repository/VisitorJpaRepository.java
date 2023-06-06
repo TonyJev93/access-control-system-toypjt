@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface VisitorJpaRepository extends JpaRepository<VisitorEntity, Long> {
+
     List<VisitorEntity> findAllByVisitId(Long visitId);
 }
