@@ -14,12 +14,14 @@ public class Visit {
     private VisitReason reason;
     private VisitStatus status;
     private ApplicantUserId applicantUserId;
+    private Requester requester;
 
     public static Visit applied(
             VisitPeriod visitPeriod,
             VisitDataCenterId dataCenterId,
             VisitReason reason,
-            ApplicantUserId applicantUserId
+            ApplicantUserId applicantUserId,
+            Requester requester
     ) {
         return Visit.builder()
                 .visitPeriod(visitPeriod)
@@ -27,17 +29,27 @@ public class Visit {
                 .reason(reason)
                 .applicantUserId(applicantUserId)
                 .status(VisitStatus.APPLIED)
+                .requester(requester)
                 .build();
     }
 
-    public static Visit of(VisitId id, VisitPeriod visitPeriod, VisitDataCenterId dataCenterId, VisitReason reason, VisitStatus status, ApplicantUserId applicantUserId) {
+    public static Visit of(
+            VisitId id,
+            VisitPeriod visitPeriod,
+            VisitDataCenterId dataCenterId,
+            VisitReason reason,
+            VisitStatus status,
+            ApplicantUserId applicantUserId,
+            Requester requester
+    ) {
         return new Visit(
                 id,
                 visitPeriod,
                 dataCenterId,
                 reason,
                 status,
-                applicantUserId
+                applicantUserId,
+                requester
         );
     }
 

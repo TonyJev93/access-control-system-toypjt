@@ -24,6 +24,6 @@ public class VisitApproveService implements VisitApproveUseCase {
 
         visit.approve();
 
-        return saveVisitRepositoryPort.save(VisitDto.from(visit));
+        return saveVisitRepositoryPort.save(VisitDto.fromDomain(visit));
     }
 }

@@ -9,16 +9,18 @@ public record VisitDto(
         VisitDataCenterIdVo dataCenterId,
         VisitReasonVo reason,
         VisitStatusVo status,
-        ApplicantUserIdVo applicantUserId
+        ApplicantUserIdVo applicantUserId,
+        RequesterDto requester
 ) {
-    public static VisitDto from(Visit visit) {
+    public static VisitDto fromDomain(Visit visit) {
         return new VisitDto(
                 visit.getId() == null ? null : VisitIdVo.fromDomain(visit.getId()),
                 VisitPeriodVo.fromDomain(visit.getVisitPeriod()),
                 VisitDataCenterIdVo.fromDomain(visit.getDataCenterId()),
                 VisitReasonVo.fromDomain(visit.getReason()),
                 VisitStatusVo.fromDomain(visit.getStatus()),
-                ApplicantUserIdVo.fromDomain(visit.getApplicantUserId())
+                ApplicantUserIdVo.fromDomain(visit.getApplicantUserId()),
+                RequesterDto.fromDomain(visit.getRequester())
         );
     }
 
@@ -29,7 +31,8 @@ public record VisitDto(
                 dataCenterId.toDomain(),
                 reason.toDomain(),
                 VisitStatusVo.toDomain(status),
-                applicantUserId.toDomain()
+                applicantUserId.toDomain(),
+                requester.toDomain()
         );
     }
 }

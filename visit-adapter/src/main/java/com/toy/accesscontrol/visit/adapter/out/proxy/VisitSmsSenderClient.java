@@ -15,7 +15,7 @@ public class VisitSmsSenderClient implements VisitSmsSender {
 
     @Override
     public void sendVisitAppliedSms(VisitAppliedSmsSendRequest request) {
-        var from = "NHN Cloud 대표번호";
+        var from = "대표번호";
         var to = request.visitor().mobilePhoneNumber().value();
         var contents = "%s님의 방문 신청이 정상적으로 등록 되었습니다.".formatted(request.visitor().name().value());
 
