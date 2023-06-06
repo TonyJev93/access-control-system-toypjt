@@ -1,32 +1,33 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 
-import com.toy.accesscontrol.visit.application.port.dto.RequesterDto;
+import com.toy.accesscontrol.visit.adapter.out.persistence.entity.embedded.RequesterEntity;
+import com.toy.accesscontrol.visit.adapter.out.persistence.entity.embedded.VisitPeriodEntity;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
-import com.toy.accesscontrol.visit.application.port.dto.vo.*;
+import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitDtoMapper;
+import com.toy.accesscontrol.visit.application.port.dto.vo.VisitStatusVo;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-
-import java.time.ZonedDateTime;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 @Entity(name = "Visit")
-@NoArgsConstructor
-// @NoArgsConstructor(access = AccessLevel.PROTECTED) // Mapstruct 사용 하려면 PUBLIC 사용 해야함.
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // Mapstruct 사용 하려면 PUBLIC 사용 해야함.
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
+@Builder // Mapstruct 사용 하려면 필요
 public class VisitEntity {
+    @Transient
+    public static final VisitEntityMapper MAPPER = VisitEntityMapper.INSTANCE;
+
     @Id
     @Column(name = "visit_id")
     @Comment("고유 아이디")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Comment("방문 시작 일시")
-    private ZonedDateTime visitStartDateTime;
-
-    @Comment("방문 종료 일시")
-    private ZonedDateTime visitEndDateTime;
+    @Embedded
+    private VisitPeriodEntity visitPeriod;
 
     @Comment("데이터 센터 아이디")
     private Long dataCenterId;
@@ -41,44 +42,15 @@ public class VisitEntity {
     @Comment("신청자 아이디")
     private String applicantUserId;
 
-    @Comment("신청자 이름")
-    private String requesterName;
+    @Embedded
+    private RequesterEntity requester;
 
-    @Comment("신청자 휴대 전화 번호")
-    private String requesterMobilePhoneNumber;
+    @Mapper
+    public interface VisitEntityMapper extends VisitDtoMapper {
+        VisitEntityMapper INSTANCE = Mappers.getMapper(VisitEntityMapper.class);
 
-    @Comment("신청자 이메일 주소")
-    private String requesterEmailAddress;
+        VisitEntity toEntity(VisitDto dto);
 
-
-    public static VisitEntity fromDto(VisitDto visit) {
-        return new VisitEntity(
-                visit.id() == null ? null : visit.id().value(),
-                visit.visitPeriod().startDateTime(),
-                visit.visitPeriod().endDateTime(),
-                visit.dataCenterId().value(),
-                visit.reason().value(),
-                visit.status(),
-                visit.applicantUserId().value(),
-                visit.requester().name().value(),
-                visit.requester().mobilePhoneNumber().value(),
-                visit.requester().emailAddress().value()
-        );
-    }
-
-    public VisitDto toDto() {
-        return new VisitDto(
-                VisitIdVo.from(id),
-                VisitPeriodVo.of(visitStartDateTime, visitEndDateTime),
-                VisitDataCenterIdVo.from(dataCenterId),
-                VisitReasonVo.from(visitReason),
-                status,
-                ApplicantUserIdVo.from(applicantUserId),
-                RequesterDto.of(
-                        RequesterNameVo.from(requesterName),
-                        MobilePhoneNumberVo.from(requesterMobilePhoneNumber),
-                        EmailAddressVo.from(requesterEmailAddress)
-                )
-        );
+        VisitDto toDto(VisitEntity entity);
     }
 }

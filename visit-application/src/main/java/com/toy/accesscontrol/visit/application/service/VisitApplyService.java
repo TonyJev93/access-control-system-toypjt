@@ -27,7 +27,7 @@ public class VisitApplyService implements VisitApplyUseCase {
         return Visit.applied(
                 request.visitPeriod().toDomain(),
                 request.dataCenterId().toDomain(),
-                request.reason().toDomain(),
+                request.visitReason().toDomain(),
                 request.applicantUserId().toDomain(),
                 request.requester().toDomain()
         );

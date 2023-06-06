@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.VisitId;
 import lombok.NonNull;
 
+import java.util.Optional;
+
 public record VisitIdVo(@JsonValue Long value) {
 
     @JsonCreator
@@ -18,5 +20,15 @@ public record VisitIdVo(@JsonValue Long value) {
 
     public VisitId toDomain() {
         return VisitId.from(this.value);
+    }
+
+    public interface Mapper {
+        default Long visitIdVo(VisitIdVo id) {
+            return Optional.ofNullable(id).map(VisitIdVo::value).orElse(null);
+        }
+
+        default VisitIdVo visitIdVo(Long id) {
+            return Optional.ofNullable(id).map(VisitIdVo::from).orElse(null);
+        }
     }
 }

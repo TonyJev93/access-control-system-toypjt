@@ -6,6 +6,8 @@ import com.toy.accesscontrol.visit.domain.vo.RequesterName;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Optional;
+
 public record RequesterNameVo(
         @JsonValue
         @NotEmpty
@@ -27,5 +29,15 @@ public record RequesterNameVo(
 
     public RequesterName toDomain() {
         return RequesterName.from(this.value);
+    }
+
+    public interface Mapper {
+        default String requesterNameVo(RequesterNameVo value) {
+            return Optional.ofNullable(value).map(RequesterNameVo::value).orElse(null);
+        }
+
+        default RequesterNameVo requesterNameVo(String value) {
+            return Optional.ofNullable(value).map(RequesterNameVo::from).orElse(null);
+        }
     }
 }

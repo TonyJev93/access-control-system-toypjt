@@ -16,7 +16,7 @@ public interface VisitApplyUseCase {
     record VisitApplyRequestDto(
             @Valid @NotNull VisitPeriodVo visitPeriod,
             @Valid @NotNull VisitDataCenterIdVo dataCenterId,
-            @Valid @NotNull VisitReasonVo reason,
+            @Valid @NotNull VisitReasonVo visitReason,
             @Valid @NotNull ApplicantUserIdVo applicantUserId,
             @Valid @NotNull List<VisitorCreateRequestDto> visitors,
             @Valid @NotNull RequesterDto requester

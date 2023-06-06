@@ -21,7 +21,7 @@ public record VisitResponse(
                 dto.visitPeriod().startDateTime(),
                 dto.visitPeriod().endDateTime(),
                 dto.dataCenterId(),
-                dto.reason(),
+                dto.visitReason(),
                 dto.status(),
                 dto.applicantUserId()
         );

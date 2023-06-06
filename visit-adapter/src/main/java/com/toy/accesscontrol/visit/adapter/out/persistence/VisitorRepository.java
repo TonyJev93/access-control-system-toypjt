@@ -1,7 +1,6 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence;
 
-import com.toy.accesscontrol.visit.adapter.out.persistence.entity.VisitorEntity;
-import com.toy.accesscontrol.visit.adapter.out.persistence.repository.VisitorJpaRepository;
+import com.toy.accesscontrol.visit.adapter.out.persistence.jpa.VisitorJpaRepository;
 import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitIdVo;
 import com.toy.accesscontrol.visit.application.port.out.LoadVisitorRepositoryPort;
@@ -13,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.toy.accesscontrol.visit.adapter.out.persistence.entity.VisitorEntity.MAPPER;
+
 @Repository
 @RequiredArgsConstructor
 @Transactional
@@ -22,8 +23,11 @@ public class VisitorRepository implements SaveVisitorRepositoryPort, LoadVisitor
 
     @Override
     public VisitorDto save(VisitorDto visitor) {
-        return repository.save(VisitorEntity.fromDto(visitor))
-                .toDto();
+        return MAPPER.toDto(
+                repository.save(
+                        MAPPER.toEntity(visitor)
+                )
+        );
     }
 
     @Override
@@ -32,7 +36,7 @@ public class VisitorRepository implements SaveVisitorRepositoryPort, LoadVisitor
     public List<VisitorDto> findAllByVisitId(VisitIdVo visitId) {
         return repository.findAllByVisitId(visitId.value())
                 .stream()
-                .map(VisitorEntity::toDto)
+                .map(MAPPER::toDto)
                 .toList();
     }
 

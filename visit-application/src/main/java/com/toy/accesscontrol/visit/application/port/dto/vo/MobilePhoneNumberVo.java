@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.MobilePhoneNumber;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Optional;
+
 public record MobilePhoneNumberVo(
         @JsonValue
         @Pattern(regexp = REG_MOBILE_PHONE)
@@ -24,4 +26,15 @@ public record MobilePhoneNumberVo(
     public MobilePhoneNumber toDomain() {
         return MobilePhoneNumber.from(this.value);
     }
+
+    public interface Mapper {
+        default String mobilePhoneNumberVo(MobilePhoneNumberVo value) {
+            return Optional.ofNullable(value).map(MobilePhoneNumberVo::value).orElse(null);
+        }
+
+        default MobilePhoneNumberVo mobilePhoneNumberVo(String value) {
+            return Optional.ofNullable(value).map(MobilePhoneNumberVo::from).orElse(null);
+        }
+    }
+
 }

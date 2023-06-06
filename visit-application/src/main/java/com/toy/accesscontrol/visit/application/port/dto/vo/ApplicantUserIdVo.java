@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.ApplicantUserId;
 import lombok.NonNull;
 
+import java.util.Optional;
+
 public record ApplicantUserIdVo(@JsonValue String value) {
 
     @JsonCreator
@@ -18,5 +20,15 @@ public record ApplicantUserIdVo(@JsonValue String value) {
 
     public ApplicantUserId toDomain() {
         return ApplicantUserId.from(this.value);
+    }
+
+    public interface Mapper {
+        default String applicantUserIdVo(ApplicantUserIdVo id) {
+            return Optional.ofNullable(id).map(ApplicantUserIdVo::value).orElse(null);
+        }
+
+        default ApplicantUserIdVo applicantUserIdVo(String id) {
+            return Optional.ofNullable(id).map(ApplicantUserIdVo::from).orElse(null);
+        }
     }
 }

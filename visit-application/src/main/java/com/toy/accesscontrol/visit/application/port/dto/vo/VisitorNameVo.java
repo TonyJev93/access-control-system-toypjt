@@ -6,6 +6,8 @@ import com.toy.accesscontrol.visit.domain.vo.VisitorName;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Optional;
+
 public record VisitorNameVo(
         @JsonValue
         @NotEmpty
@@ -26,5 +28,15 @@ public record VisitorNameVo(
 
     public VisitorName toDomain() {
         return VisitorName.from(this.value);
+    }
+
+    public interface Mapper {
+        default String visitorNameVo(VisitorNameVo value) {
+            return Optional.ofNullable(value).map(VisitorNameVo::value).orElse(null);
+        }
+
+        default VisitorNameVo visitorNameVo(String value) {
+            return Optional.ofNullable(value).map(VisitorNameVo::from).orElse(null);
+        }
     }
 }

@@ -7,7 +7,7 @@ public record VisitDto(
         VisitIdVo id,
         VisitPeriodVo visitPeriod,
         VisitDataCenterIdVo dataCenterId,
-        VisitReasonVo reason,
+        VisitReasonVo visitReason,
         VisitStatusVo status,
         ApplicantUserIdVo applicantUserId,
         RequesterDto requester
@@ -29,7 +29,7 @@ public record VisitDto(
                 id.toDomain(),
                 visitPeriod.toDomain(),
                 dataCenterId.toDomain(),
-                reason.toDomain(),
+                visitReason.toDomain(),
                 VisitStatusVo.toDomain(status),
                 applicantUserId.toDomain(),
                 requester.toDomain()

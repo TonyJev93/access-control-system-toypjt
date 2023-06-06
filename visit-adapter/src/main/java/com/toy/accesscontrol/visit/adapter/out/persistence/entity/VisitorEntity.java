@@ -1,22 +1,21 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 
 import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
-import com.toy.accesscontrol.visit.application.port.dto.vo.CompanyVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.MobilePhoneNumberVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitorIdVo;
-import com.toy.accesscontrol.visit.application.port.dto.vo.VisitorNameVo;
+import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitDtoMapper;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 @Entity(name = "Visitor")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder // Mapstruct 사용 하려면 필요
 public class VisitorEntity {
+    public static final VisitorEntityMapper MAPPER = VisitorEntityMapper.INSTANCE;
+
     @Id
     @Comment("고유 아이디")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,24 +34,12 @@ public class VisitorEntity {
     @Comment("방문자 회사")
     private String company;
 
-    public static VisitorEntity fromDto(VisitorDto visitor) {
-        return new VisitorEntity(
-                visitor.id() == null ? null : visitor.id().value(),
-                VisitEntity.fromDto(visitor.visit()),
-                visitor.name().value(),
-                visitor.mobilePhoneNumber().value(),
-                visitor.company().value()
-        );
-    }
+    @Mapper
+    public interface VisitorEntityMapper extends VisitDtoMapper {
+        VisitorEntityMapper INSTANCE = Mappers.getMapper(VisitorEntityMapper.class);
 
-    public VisitorDto toDto() {
-        return new VisitorDto(
-                VisitorIdVo.from(id),
-                visit.toDto(),
-                VisitorNameVo.from(name),
-                MobilePhoneNumberVo.from(mobilePhoneNumber),
-                CompanyVo.from(company)
-        );
-    }
+        VisitorEntity toEntity(VisitorDto dto);
 
+        VisitorDto toDto(VisitorEntity entity);
+    }
 }

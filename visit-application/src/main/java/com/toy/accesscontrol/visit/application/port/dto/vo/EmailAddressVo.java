@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.EmailAddress;
 import jakarta.validation.constraints.Email;
 
+import java.util.Optional;
+
 public record EmailAddressVo(
         @JsonValue
         @Email
@@ -21,5 +23,15 @@ public record EmailAddressVo(
 
     public EmailAddress toDomain() {
         return EmailAddress.from(this.value);
+    }
+
+    public interface Mapper {
+        default String emailAddressVo(EmailAddressVo value) {
+            return Optional.ofNullable(value).map(EmailAddressVo::value).orElse(null);
+        }
+
+        default EmailAddressVo emailAddressVo(String value) {
+            return Optional.ofNullable(value).map(EmailAddressVo::from).orElse(null);
+        }
     }
 }
