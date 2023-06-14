@@ -1,7 +1,7 @@
 package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 
 import com.toy.accesscontrol.visit.application.port.dto.VisitorDto;
-import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitDtoMapper;
+import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitBaseMapper;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -35,7 +35,7 @@ public class VisitorEntity {
     private String company;
 
     @Mapper
-    public interface VisitorEntityMapper extends VisitDtoMapper {
+    public interface VisitorEntityMapper extends VisitBaseMapper {
         VisitorEntityMapper INSTANCE = Mappers.getMapper(VisitorEntityMapper.class);
 
         VisitorEntity toEntity(VisitorDto dto);

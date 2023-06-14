@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.toy.accesscontrol.visit.domain.vo.RequesterName;
 import jakarta.validation.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Length;
+import jakarta.validation.constraints.Size;
 
 import java.util.Optional;
 
 public record RequesterNameVo(
         @JsonValue
         @NotEmpty
-        @Length(min = LENGTH_MIN, max = LENGTH_MAX)
+        @Size(min = LENGTH_MIN, max = LENGTH_MAX)
         String value
 ) {
 

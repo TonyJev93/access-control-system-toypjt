@@ -2,7 +2,7 @@ package com.toy.accesscontrol.visit.application.port.dto.mapper;
 
 import com.toy.accesscontrol.visit.application.port.dto.vo.*;
 
-public interface VisitDtoMapper extends
+public interface VisitBaseMapper extends
         VisitIdVo.Mapper,
         VisitDataCenterIdVo.Mapper,
         ApplicantUserIdVo.Mapper,

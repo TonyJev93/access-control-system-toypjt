@@ -3,7 +3,7 @@ package com.toy.accesscontrol.visit.adapter.out.persistence.entity;
 import com.toy.accesscontrol.visit.adapter.out.persistence.entity.embedded.RequesterEntity;
 import com.toy.accesscontrol.visit.adapter.out.persistence.entity.embedded.VisitPeriodEntity;
 import com.toy.accesscontrol.visit.application.port.dto.VisitDto;
-import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitDtoMapper;
+import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitBaseMapper;
 import com.toy.accesscontrol.visit.application.port.dto.vo.VisitStatusVo;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,7 +46,7 @@ public class VisitEntity {
     private RequesterEntity requester;
 
     @Mapper
-    public interface VisitEntityMapper extends VisitDtoMapper {
+    public interface VisitEntityMapper extends VisitBaseMapper {
         VisitEntityMapper INSTANCE = Mappers.getMapper(VisitEntityMapper.class);
 
         VisitEntity toEntity(VisitDto dto);
