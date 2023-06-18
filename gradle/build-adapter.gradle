@@ -1,4 +1,5 @@
 apply from: rootProject.file('gradle/build-common.gradle')
+apply from: rootProject.file('gradle/lib/spring-data-envers.gradle')
 
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'

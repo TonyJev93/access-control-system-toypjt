@@ -5,6 +5,7 @@ import com.toy.accesscontrol.visit.application.port.dto.mapper.VisitBaseMapper;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.hibernate.envers.Audited;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -13,6 +14,7 @@ import org.mapstruct.factory.Mappers;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder // Mapstruct 사용 하려면 필요
+@Audited(withModifiedFlag = true)
 public class VisitorEntity {
     public static final VisitorEntityMapper MAPPER = VisitorEntityMapper.INSTANCE;
 
