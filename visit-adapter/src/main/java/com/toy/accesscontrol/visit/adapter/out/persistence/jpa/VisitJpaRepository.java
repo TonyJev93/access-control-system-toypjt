@@ -6,5 +6,6 @@ import org.springframework.data.repository.history.RevisionRepository;
 
 public interface VisitJpaRepository extends
         RevisionRepository<VisitEntity, Long, Integer>,
-        JpaRepository<VisitEntity, Long> {
+        JpaRepository<VisitEntity, Long>,
+        VisitJpaRepositoryCustom {
 }

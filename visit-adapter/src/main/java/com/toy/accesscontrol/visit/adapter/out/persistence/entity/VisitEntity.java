@@ -44,7 +44,7 @@ public class VisitEntity {
     @Comment("신청자 아이디")
     private String applicantUserId;
 
-    @Embedded
+    @Embedded // @Embedded 내 필드들은 Envers MOD 적용 안 됨
     private RequesterEntity requester;
 
     @Mapper
